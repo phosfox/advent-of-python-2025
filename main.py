@@ -1,10 +1,11 @@
-from solutions.day01 import Day01, clicks
+from solutions.day01 import Day01
+from solutions.day02 import Day02
 
 
 def main():
-    day01 = Day01()
-    day01.part1()
-    day01.part2()
+    day = Day02()
+    day.part1()
+    day.part2()
 
 
 if __name__ == "__main__":

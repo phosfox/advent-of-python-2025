@@ -1,8 +1,6 @@
 import re
 from dataclasses import dataclass
 from itertools import accumulate
-from numbers import Number
-from operator import neg
 
 from day_base import SolutionBase
 
