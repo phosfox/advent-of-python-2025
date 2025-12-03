@@ -1,10 +1,11 @@
 import sys
 from collections import deque
-from itertools import batched, islice
+from itertools import batched, combinations, islice, permutations
 from operator import pos
 from pathlib import Path
 from sqlite3 import SQLITE_OK_LOAD_PERMANENTLY
 from syslog import LOG_WARNING
+from typing import Iterable
 
 from day_base import SolutionBase
 
@@ -38,47 +39,20 @@ def joltage(bank):
     return int(str(largest) + str(second_largest))
 
 
-def find_max(bank_slice):
-    largest = -1
-    largest_idx = -1
-    for idx, battery in enumerate(bank_slice):
-        if battery > largest:
-            largest = battery
-            largest_idx = idx
-    return (largest, largest_idx)
+def bank_to_number(bank: Iterable[int]):
+    return int("".join(map(str, bank)))
+
+
+def max_combination(bank):
+    m = max(bank_to_number(b) for b in combinations(bank, len(bank) - 1))
+    return [int(s) for s in str(m)]
 
 
 def joltage2(bank: list[int]):
-    print(bank)
-    n = 12
-    largest_batteries = []
-    latest_idx = 0
-    for _ in range(n):
-        for idx, b in enumerate(bank):
-            print(largest_batteries, latest_idx)
-            if idx > latest_idx and b > largest_batteries[len(largest_batteries)]:
-                largest_batteries.append(b)
-                latest_idx = idx
-
-    print(largest_batteries)
-
-    return int("".join(map(str, largest_batteries)))
-
-
-# 987654321111111
-#
-def joltage12(bank):
-    n = 12
-    largest_batteries = []
-    windows_size = len(bank) - n
-    largest_idx = 0
-    for _ in range(n):
-        bank_slice = bank[largest_idx:windows_size]
-        print(bank_slice)
-        largest, largest_idx = find_max(bank_slice)
-        largest_batteries.append(largest)
-        bank = bank[largest_idx + 1 :]
-    return largest_batteries
+    while len(bank) > 12:
+        max_comb = max_combination(bank)
+        bank = max_comb
+    return bank_to_number(bank)
 
 
 class Day03(SolutionBase):
@@ -88,7 +62,6 @@ class Day03(SolutionBase):
         print(sum(joltages))
 
     def part2(self):
-        banks = parse("inputs/day03_test.txt")
+        banks = parse("inputs/day03.txt")
         joltages = [joltage2(bank) for bank in banks]
-        print(joltages)
         print(sum(joltages))
