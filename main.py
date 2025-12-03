@@ -1,9 +1,8 @@
-from solutions.day01 import Day01
-from solutions.day02 import Day02
+from solutions.day03 import Day03, joltage
 
 
 def main():
-    day = Day02()
+    day = Day03()
     day.part1()
     day.part2()
 
