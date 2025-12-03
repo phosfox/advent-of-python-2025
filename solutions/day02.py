@@ -1,13 +1,14 @@
+from pathlib import Path
+
 from day_base import SolutionBase
 
 
 def parse(input) -> list[list[int]]:
-    with open(input) as f:
-        ranges: list[list[int]] = []
-        for r in f.readline().strip().split(","):
-            start, end = r.split("-")
-            ranges.append([int(start), int(end)])
-        return ranges
+    ranges: list[list[int]] = []
+    for r in Path(input).read_text().strip().split(","):
+        start, end = r.split("-")
+        ranges.append([int(start), int(end)])
+    return ranges
 
 
 def expand_range(id_range):
