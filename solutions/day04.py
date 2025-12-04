@@ -34,12 +34,6 @@ def neighbours(nb_indices: list[tuple[int, int]], grid: NDArray) -> NDArray:
     return np.array(nbs)
 
 
-def part1():
-    grid = parse("inputs/day04.txt")
-    removable_rolls = find_removable_rolls(grid)
-    print(len(removable_rolls))
-
-
 def find_removable_rolls(grid) -> list[tuple[int, int]]:
     removable_rolls = []
     for (x, y), ele in np.ndenumerate(grid):
@@ -50,6 +44,12 @@ def find_removable_rolls(grid) -> list[tuple[int, int]]:
         if np.sum(nbs == "@") < 4:
             removable_rolls.append((x, y))
     return removable_rolls
+
+
+def part1():
+    grid = parse("inputs/day04.txt")
+    removable_rolls = find_removable_rolls(grid)
+    print(len(removable_rolls))
 
 
 def part2():
