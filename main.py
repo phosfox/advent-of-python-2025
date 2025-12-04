@@ -1,10 +1,9 @@
-from solutions.day03 import Day03, joltage
+from solutions.day04 import part1, part2
 
 
 def main():
-    day = Day03()
-    day.part1()
-    day.part2()
+    part1()
+    part2()
 
 
 if __name__ == "__main__":

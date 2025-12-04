@@ -1,10 +1,5 @@
-import sys
-from collections import deque
-from itertools import batched, combinations, islice, permutations
-from operator import pos
+from itertools import combinations
 from pathlib import Path
-from sqlite3 import SQLITE_OK_LOAD_PERMANENTLY
-from syslog import LOG_WARNING
 from typing import Iterable
 
 from day_base import SolutionBase
@@ -24,7 +19,6 @@ def joltage(bank):
     largest = -1
     largest_idx = -1
     second_largest = -1
-    second_largest_idx = -1
     for idx, battery in enumerate(bank):
         if idx == len(bank) - 1:
             continue
@@ -35,7 +29,6 @@ def joltage(bank):
     for idx, battery in enumerate(bank):
         if battery > second_largest and idx > largest_idx:
             second_largest = battery
-            second_largest_idx = idx
     return int(str(largest) + str(second_largest))
 
 
