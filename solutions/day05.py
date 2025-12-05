@@ -50,13 +50,13 @@ def right_fits_into_left(range_a, range_b):
 def left_overlap(range_a, range_b):
     start_a, stop_a = range_a
     start_b, stop_b = range_b
-    return start_a <= start_b < stop_a
+    return start_a <= start_b <= stop_a
 
 
 def right_overlap(range_a, range_b):
     start_a, stop_a = range_a
     start_b, stop_b = range_b
-    return start_a < stop_b <= stop_a
+    return start_a <= stop_b <= stop_a
 
 
 def collapse_ranges(fresh_ranges) -> list[list[int]]:
@@ -69,6 +69,11 @@ def collapse_ranges(fresh_ranges) -> list[list[int]]:
                 break
             if left_fits_into_right(l, r):
                 new_ranges.add(r)
+                used.add(l)
+                used.add(r)
+                break
+            if right_fits_into_left(l, r):
+                new_ranges.add(l)
                 used.add(l)
                 used.add(r)
                 break
@@ -107,7 +112,7 @@ def part2():
     print(len(minimum_ranges))
     print(minimum_ranges)
     count = 0
-    for start, stop in minimum_ranges[:1]:
+    for start, stop in minimum_ranges:
         count += len(range(start, stop + 1))
     print(count)
     pass
