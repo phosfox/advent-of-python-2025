@@ -49,18 +49,19 @@ def find_removable_rolls(grid) -> list[tuple[int, int]]:
 def part1():
     grid = parse("inputs/day04.txt")
     removable_rolls = find_removable_rolls(grid)
+    assert len(removable_rolls) == 1346
     print(len(removable_rolls))
 
 
 def part2():
     grid = parse("inputs/day04.txt")
     total_rolls_removed = 0
-    while True:
-        removable_rolls = find_removable_rolls(grid)
+    while removable_rolls := find_removable_rolls(grid):
         amount_of_removable_rolls = len(removable_rolls)
         if (total_rolls_removed + amount_of_removable_rolls) == total_rolls_removed:
             break
         total_rolls_removed += amount_of_removable_rolls
         for x, y in removable_rolls:
             grid[x, y] = "X"
+    assert total_rolls_removed == 8493
     print(total_rolls_removed)
