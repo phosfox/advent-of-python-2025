@@ -49,27 +49,16 @@ def part1():
         distances.append((dist, (a, b)))
 
     connections = 0
-    for _, (a, b) in sorted(distances, key=lambda t: t[0]):
-        if connections == 10:
-            break
-        for c in circuits:
-            #print(circuits, len(circuits))
-            if a in c and b in c:
-                print("in")
-                remove(a, b, circuits)
-                break
-            if a in c and b not in c:
-                c.add(b)
-                remove(a, b, circuits)
-                connections += 1
-                break
-            if a not in c and b in c:
-                c.add(a)
-                remove(a, b, circuits)
-                connections += 1
-                break
-    print(sorted(list(map(len, circuits)), reverse=True))
-    print(np.prod(sorted(list(map(len, circuits)), reverse=True)[:3]))
+    for _, (a, b) in sorted(distances, key=lambda t: t[0])[:10]:
+        if circuits[a] != circuits[b]:
+            new = circuits[a] | circuits[b]
+            for c in new:
+                circuits[c] = new
+            print("new", new)
+            pass
+    print(sorted(list(map(len, circuits.values())), reverse=True))
+    print(np.prod(sorted(list(map(len, circuits.values())), reverse=True)[:3]))
+    pprint.pp(circuits)
 
 
 def part2():
